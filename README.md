@@ -12,6 +12,8 @@ _Análise de Eficiência (PPG vs. TS%)_
 <img src="screenshots/dashboard_eficiencia.png" alt="Análise de Eficiência" width="800"/>
 
 _Análise de Carreira_
+
+
 <img src="screenshots/dashboard_carreira.png" alt="Análise de Carreira" width="800"/>
 
 
