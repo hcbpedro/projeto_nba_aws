@@ -8,7 +8,6 @@ Este projeto de portfólio demonstra a construção de um pipeline de dados de p
 
 O produto final é um dashboard interativo no Amazon QuickSight que permite a análise de desempenho e eficiência de jogadores por temporada. O painel inclui análises de líderes de estatísticas, um estudo sobre eficiência de arremessos (Volume vs. Eficiência com TS%) e uma visão da evolução da carreira de jogadores individuais.
 
-
 _Análise de Eficiência (PPG vs. TS%)_
 <img src="screenshots/dashboard_eficiencia.png" alt="Análise de Eficiência" width="800"/>
 
