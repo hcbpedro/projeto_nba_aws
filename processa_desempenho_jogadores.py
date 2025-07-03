@@ -34,7 +34,6 @@ path_box_scores = f"{s3_bucket_path}NBA Player Box Score Stats(1950 - 2022).csv"
 path_player_stats_agg_upload = f"{s3_bucket_path}NBA Player Stats(1950 - 2022).csv"
 path_salaries_upload = f"{s3_bucket_path}NBA Salaries(1990-2023).csv"
 
-# ESTE É O NOVO BLOCO PARA CARREGAR df_box_scores:
 print(f"Carregando dados de box score de forma robusta de: {path_box_scores}")
 
 # Ler o CSV sem usar a primeira linha como cabeçalho diretamente e sem inferir esquema inicialmente
@@ -58,7 +57,7 @@ column_names = [
     "VIDEO_AVAILABLE"
 ]
 
-# Importar tipos para criar schema vazio, se necessário
+# Importar tipos para criar schema vazio
 from pyspark.sql.types import StructType, StructField, StringType # Adicione mais tipos conforme necessário
 
 if rdd_sem_header.isEmpty():
@@ -84,14 +83,14 @@ else:
         print("As colunas lidas são:", df_box_scores.columns)
         print("Os nomes definidos são:", column_names)
         print("O processamento de df_box_scores provavelmente falhará ou produzirá resultados incorretos.")
-        # Para segurança, vamos criar um df_box_scores vazio com o schema correto se houver essa discrepância.
+        # Para segurança, criando um df_box_scores vazio com o schema correto se houver essa discrepância.
         empty_schema_fields = [StructField(name, StringType(), True) for name in column_names]
         df_box_scores = spark.createDataFrame([], StructType(empty_schema_fields))
         print("Criado DataFrame df_box_scores VAZIO devido à incompatibilidade de contagem de colunas.")
 
 
 
-# Carregando o arquivo de salários, pois ele será usado no join opcional
+# Carregando o arquivo de salários, pois ele será usado em um join opcional de salários
 print(f"Carregando dados de salários de: {path_salaries_upload}")
 dynamic_frame_salaries = glueContext.create_dynamic_frame.from_options(
     connection_type="s3",
@@ -108,7 +107,6 @@ df_salaries.show(3, truncate=False)
 print("Dados brutos necessários foram carregados.")
 
 # --- 2. Limpeza de Dados (em df_box_scores) ---
-# Esta seção deve vir APÓS o df_box_scores ter sido carregado e suas colunas renomeadas corretamente.
 print("Limpando df_box_scores (conversão de tipos)...")
 
 # Lista de colunas de estatísticas que devem ser numéricas (double para cálculos)
